@@ -8,7 +8,7 @@ namespace SpendSmart.Models
         
         public decimal Value { get; set; }
 
-        [Required]
+        [Required   ]
         public string? Description { get; set; } 
     }
 }
