@@ -23,6 +23,8 @@ namespace SpendSmart.Controllers
             return View();
         }
 
+        // Test
+
         public IActionResult Privacy()
         {
             return View();
