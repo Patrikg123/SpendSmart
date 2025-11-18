@@ -12,8 +12,9 @@ namespace SpendSmart
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<SpendSmartDbContext>(options =>
-            options.UseInMemoryDatabase("SpendSmartDb");
+            builder.Services.AddDbContext<SpendSmartDbContext>(static options =>
+                options.UseInMemoryDatabase("SpendSmartDb")
+            );
 
             var app = builder.Build();
 
