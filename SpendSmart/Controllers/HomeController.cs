@@ -27,15 +27,36 @@ namespace SpendSmart.Controllers
             return View(allExpenses);
         }
 
-        public IActionResult CreateEditExpense()
+        public IActionResult CreateEditExpense(int? id)
         {
+
+            if (id != null)
+            {
+                var expenseInDb = _context.Expenses.SingleOrDefault(expense => expense.Id == id);
+                return View(expenseInDb);
+            }
             return View();
+        }
+
+        public IActionResult DeleteExpense(int id)
+        {
+            var expenseInDb = _context.Expenses.SingleOrDefault(expense => expense.Id == id);
+            _context.Expenses.Remove(expenseInDb);
+            _context.SaveChanges();
+            return RedirectToAction("Expenses");
         }
 
         public IActionResult CreateEditExpenseForm(Expense model)
         {
-            _context.Expenses.Add(model);
-            _context.SaveChanges();
+            if(model.Id == 0) {
+                _context.Expenses.Add(model);
+            }
+            else
+            {
+                _context.Expenses.Update(model);
+            }
+
+                _context.SaveChanges();
             return RedirectToAction("Expenses");
         }
 
@@ -45,7 +66,6 @@ namespace SpendSmart.Controllers
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
